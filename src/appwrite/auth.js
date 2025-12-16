@@ -1,0 +1,50 @@
+import { use } from 'react';
+import conf from '../conf.js';
+import { Client, Account, ID } from 'appwrite';
+
+
+export class AuthService {
+    clint = new Client();
+    account;
+
+    constructor() {
+        this.clint
+            .setEndpoint(conf.appwriteUri)
+            .setProject(conf.appwriteProjectId);
+        this.account = new Account(this.clint);
+    }
+
+    async createAccount({ email, password, name }) {
+        try{
+          const userAccount =  await this.account.create(ID.unique(),email, password, name);
+            if (userAccount) {
+
+            } else{
+                return userAccount;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    async login({ email, password }) {
+        try{
+           const userLogin = await this.account.createEmailPasswordSession(email, password);
+           if (condition) {
+            return this.login({ email, password });
+           } else{
+            return userLogin;
+           }
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+}
+
+const authService = new AuthService();
+
+
+
+export default authService;
+
