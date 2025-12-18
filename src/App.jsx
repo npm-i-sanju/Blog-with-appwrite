@@ -1,7 +1,27 @@
-import React from 'react'
-function App() {
+import React, {useState, useEffect} from 'react'
+import { useDispatch } from 'react-redux';
+import authService from './appwrite/auth';
+import {login,logout} from './store/authSlice';
 
-  console.log(import.meta.env.VITE_APPWRITE_URI);
+function App() {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() =>{
+    authService.getCurrentUser()
+    .then((userData)=>{
+      if(userData){
+        dispatch(login({userData}));
+      }else{
+        dispatch(logout());
+      }
+    })
+    .finally(()=>{
+      setLoading(false);
+    })
+  },[])
+
+  //console.log(import.meta.env.VITE_APPWRITE_URI);
   return (
     <>
       
