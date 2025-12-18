@@ -22,11 +22,12 @@ function App() {
   },[])
 
   //console.log(import.meta.env.VITE_APPWRITE_URI);
-  return (
-    <>
+  return !loading ? (
+    <div>
+
       
-    </>
-  )
+    </div>
+  ) : null;
 }
 
 export default App
